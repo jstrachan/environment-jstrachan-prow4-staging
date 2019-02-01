@@ -1,34 +1,26 @@
-expose:
-  Args: 
-    - --v
-    - 4
-  Annotations:
-    helm.sh/hook: post-install,post-upgrade
-    helm.sh/hook-delete-policy: hook-succeeded
-
+PipelineSecrets: {}
 cleanup:
-  Args: 
-    - --cleanup
   Annotations:
     helm.sh/hook: pre-delete
     helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --cleanup
+controllerbuild:
+  enabled: true
 expose:
-  config:
-    domain: 35.241.135.37.nip.io
-    exposer: Ingress
-    http: "true"
-    tlsacme: "false"
-    pathMode: ""
   Annotations:
     helm.sh/hook: post-install,post-upgrade
     helm.sh/hook-delete-policy: hook-succeeded
-expose:
   config:
-    domain: 35.240.11.171.nip.io
+    domain: 34.76.169.254.nip.io
     exposer: Ingress
     http: "true"
-    tlsacme: "false"
     pathMode: ""
-  Annotations:
-    helm.sh/hook: post-install,post-upgrade
-    helm.sh/hook-delete-policy: hook-succeeded
+    tlsacme: "false"
+jenkins:
+  Servers:
+    Global:
+      EnvVars:
+        TILLER_NAMESPACE: kube-system
+  enabled: false
+prow: {}
